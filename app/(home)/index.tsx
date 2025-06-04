@@ -1,6 +1,7 @@
 import PostCell from "@/components/PostCell";
 import { fetchPosts } from "@/data";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { router } from "expo-router";
 import { ActivityIndicator, FlatList, Text, View } from "react-native";
 
 //ref https://tanstack.com/query/latest/docs/framework/react/guides/infinite-queries
@@ -21,13 +22,17 @@ export default function HomeScreen() {
 
   const posts = data?.pages.flatMap((page) => page) ?? [];
 
-  console.log({ status, posts, data });
   return (
     <FlatList
       style={{ backgroundColor: "#FFF" }}
       data={posts}
       keyExtractor={(item) => `${item.id}`}
-      renderItem={({ item }) => <PostCell post={item} />}
+      renderItem={({ item }) => (
+        <PostCell
+          post={item}
+          onPress={() => router.navigate(`/posts/${item.id}`)}
+        />
+      )}
       ListEmptyComponent={() => (
         <View style={{ padding: 16 }}>
           {status === "pending" ? (

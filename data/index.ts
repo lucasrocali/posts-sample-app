@@ -15,3 +15,8 @@ export const fetchPosts = async (page = 0): Promise<Post[]> => {
   const { data } = await axiosInstance.get<Post[]>(`/posts?_page=${page}`);
   return data;
 };
+
+export const fetchPost = async (id: number): Promise<Post> => {
+  const { data } = await axiosInstance.get<Post>(`/posts/${id}`);
+  return data;
+};
