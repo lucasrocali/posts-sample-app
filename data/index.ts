@@ -11,6 +11,14 @@ export type Post = {
   body: string;
 };
 
+export type Comment = {
+  id: number;
+  postId: number;
+  name: string;
+  email: string;
+  body: string;
+};
+
 export const fetchPosts = async (page = 0): Promise<Post[]> => {
   const { data } = await axiosInstance.get<Post[]>(`/posts?_page=${page}`);
   return data;
@@ -18,5 +26,12 @@ export const fetchPosts = async (page = 0): Promise<Post[]> => {
 
 export const fetchPost = async (id: number): Promise<Post> => {
   const { data } = await axiosInstance.get<Post>(`/posts/${id}`);
+  return data;
+};
+
+export const fetchComments = async (postId: number): Promise<Comment[]> => {
+  const { data } = await axiosInstance.get<Comment[]>(
+    `posts/${postId}/comments`
+  );
   return data;
 };

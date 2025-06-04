@@ -1,8 +1,9 @@
 import PostCell from "@/components/PostCell";
-import { fetchPost, Post } from "@/data";
+import CommentCell from "@/components/CommentCell";
+import { fetchComments, fetchPost, Post } from "@/data";
 import { InfiniteData, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLocalSearchParams } from "expo-router";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, Text, View, FlatList } from "react-native";
 
 //ref https://docs.expo.dev/develop/dynamic-routes/
 //ref https://tanstack.com/query/latest/docs/framework/react/guides/initial-query-data
@@ -25,6 +26,11 @@ export default function PostScreen() {
     },
   });
 
+  const { data: comments } = useQuery({
+    queryKey: ["comments", id],
+    queryFn: () => fetchComments(Number(id)),
+  });
+
   return (
     <View style={{ flex: 1, backgroundColor: "#FFF" }}>
       {status === "pending" ? (
@@ -38,6 +44,12 @@ export default function PostScreen() {
       ) : (
         <PostCell post={post} />
       )}
+      <FlatList
+        style={{ backgroundColor: "#EEE" }}
+        data={comments}
+        keyExtractor={(item) => `${item.id}`}
+        renderItem={({ item }) => <CommentCell comment={item} />}
+      />
     </View>
   );
 }

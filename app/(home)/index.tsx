@@ -30,6 +30,7 @@ export default function HomeScreen() {
       renderItem={({ item }) => (
         <PostCell
           post={item}
+          preview
           onPress={() => router.navigate(`/posts/${item.id}`)}
         />
       )}
