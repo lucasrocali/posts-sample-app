@@ -17,7 +17,6 @@ export default function PostCell({
         gap: 8,
       }}
     >
-      <Text style={{ fontSize: 12, color: "#999" }}>{`#${comment.id}`}</Text>
       <Text style={{ fontSize: 16, fontWeight: 600 }}>{comment.name}</Text>
       <Text style={{ fontSize: 14 }}>{comment.email}</Text>
       <Text style={{ fontSize: 14 }}>{comment.body}</Text>

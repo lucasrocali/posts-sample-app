@@ -19,9 +19,9 @@ export default function PostCell({
         gap: 8,
       }}
       activeOpacity={0.8}
+      disabled={!onPress}
       onPress={onPress}
     >
-      <Text style={{ fontSize: 12, color: "#999" }}>{`#${post.id}`}</Text>
       <Text style={{ fontSize: 16, fontWeight: 600 }}>{post.title}</Text>
       <Text style={{ fontSize: 14 }} numberOfLines={preview ? 2 : undefined}>
         {post.body}

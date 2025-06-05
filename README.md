@@ -7,7 +7,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 1. Install dependencies
 
    ```bash
-   npm install
+   yarn install
    ```
 
 2. Start the app
@@ -25,26 +25,30 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+## Requisitos
 
-When you're ready, run:
+1. Listagem de Posts:
+   - [x] a. Exibir lista de posts com título e resumo do conteúdo
+   - [x] b. Paginação ou scroll infinito
+2. Visualizar detalhes de um post:
+   - [x] a. Visualizar conteúdo do post
+   - [x] b. Visualizar comentários de cada post
+   - [x] c. Exibir nome do autor e corpo do comentário
+3. Busca:
+   - [x] a. Implementar barra de pesquisa para filtrar posts por título ou conteúdo
+4. Tratamento de Erros:
+   - [x] a. Feedback visual para o usuário
+   - [x] b. Indicadores de carregamento
+5. Testes
+   - [ ] Testes tela Posts
+   - [ ] Testes tela Post Detail
 
-```bash
-npm run reset-project
-```
+## Limitações
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+> a. Implementar barra de pesquisa para filtrar posts por título ou conteúdo
 
-## Learn more
+A api parece ter filtragem apenas se o texto for exato `title` ou `body` for exato, (por exemplo https://jsonplaceholder.typicode.com/posts?title=qui%20est%20esse). Por esse motivo a busca foi feita filtrando no conteudo local já carregado.
 
-To learn more about developing your project with Expo, look at the following resources:
+https://jsonplaceholder.typicode.com/guide/
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+https://github.com/typicode/json-server
