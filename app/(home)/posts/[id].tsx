@@ -35,11 +35,11 @@ export default function PostDetailScreen() {
     <View style={{ flex: 1, backgroundColor: "#FFF" }}>
       {status === "pending" ? (
         <View>
-          <ActivityIndicator />
+          <ActivityIndicator testID="loading-activity-indicator" />
         </View>
       ) : !post || status === "error" ? (
         <View>
-          <Text>Error: {error.message}</Text>
+          <Text>{error.message}</Text>
         </View>
       ) : (
         <PostCell post={post} />

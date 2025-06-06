@@ -43,7 +43,7 @@ describe("<PostsScreen />", () => {
     queryClient.clear();
   });
 
-  test("should show posts and navigate to /posts/[id]", async () => {
+  test("1.a - should show posts and navigate to /posts/[id]", async () => {
     mockedFetchPosts.mockResolvedValueOnce([POST_1, POST_2]);
 
     const { findByTestId, getByTestId, findByText } = renderWithQueryClient(
@@ -65,25 +65,7 @@ describe("<PostsScreen />", () => {
     expect(router.navigate).toHaveBeenCalledWith(`/posts/${POST_1.id}`);
   });
 
-  test("should show error message", async () => {
-    const errorMessage = "Some error";
-    const error = new Error(errorMessage);
-    mockedFetchPosts.mockRejectedValueOnce(error);
-
-    const { findByTestId, getByTestId, findByText } = renderWithQueryClient(
-      <PostsScreen />
-    );
-
-    await findByTestId("loading-activity-indicator");
-
-    await waitForElementToBeRemoved(() =>
-      getByTestId("loading-activity-indicator")
-    );
-
-    await findByText(errorMessage);
-  });
-
-  test("should load second page of posts when reach end of page", async () => {
+  test("1.b - should load second page of posts when reach end of page", async () => {
     mockedFetchPosts
       .mockResolvedValueOnce([POST_1, POST_2])
       .mockResolvedValueOnce([POST_3, POST_4]);
@@ -105,7 +87,7 @@ describe("<PostsScreen />", () => {
     await findByText(POST_4.title);
   });
 
-  test("should filter posts by content", async () => {
+  test("3.a - should filter posts by content", async () => {
     mockedFetchPosts.mockResolvedValueOnce([POST_1, POST_2]);
 
     const { findByTestId, getByTestId, findByText, queryByText } =
@@ -126,5 +108,23 @@ describe("<PostsScreen />", () => {
     await findByText(POST_1.title);
 
     expect(queryByText(POST_2.title)).toBeNull();
+  });
+
+  test("4.a - should show error message", async () => {
+    const errorMessage = "Some error";
+    const error = new Error(errorMessage);
+    mockedFetchPosts.mockRejectedValueOnce(error);
+
+    const { findByTestId, getByTestId, findByText } = renderWithQueryClient(
+      <PostsScreen />
+    );
+
+    await findByTestId("loading-activity-indicator");
+
+    await waitForElementToBeRemoved(() =>
+      getByTestId("loading-activity-indicator")
+    );
+
+    await findByText(errorMessage);
   });
 });
