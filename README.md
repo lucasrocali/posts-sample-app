@@ -40,8 +40,40 @@ You can start developing by editing the files inside the **app** directory. This
    - [x] a. Feedback visual para o usuário
    - [x] b. Indicadores de carregamento
 5. Testes
-   - [ ] Testes tela Posts
-   - [ ] Testes tela Post Detail
+   - [x] Testes tela Posts
+   - [x] Testes tela Post Detail
+
+## Arquitetura
+
+[react-query](https://tanstack.com/query/latest) é uma biblioteca que facilita o gerenciamento de dados remotos no React. Ela oferece cache automático das queries, centraliza os gerenciamento de dados por hooks, simplifica a paginação, e estados claros de status, erro e sucesso.
+
+[expo-router](https://docs.expo.dev/versions/latest/sdk/router/) utiliza o sistema de arquivos como estrutura de navegação. É uma abstração sobre a biblioteca [react-navigation](https://reactnavigation.org/), oferecendo uma forma mais simples e performática de implementar navegação em aplicativos React Native, com suporte nativo a deep linking, stacks e layouts dinâmicos.
+
+[@testing-library/react-native](https://callstack.github.io/react-native-testing-library/) é uma biblioteca de testes para componentes React Native, baseada nos princípios da Testing Library. Ela promove testes que simulam o comportamento real do usuário, ao invés de testar detalhes de implementação. Oferece utilitários como `render`, `getByText`, `fireEvent.press` que facilitam na validação de requisitos.
+
+Por exemplo:
+
+```
+  test("1.a - should show posts and navigate to /posts/[id]", async () => {
+    mockedFetchPosts.mockResolvedValueOnce([POST_1, POST_2]); //<== faz o mock do retorno da api pela função 'fetchPosts'
+
+    const { findByTestId, getByTestId, findByText } = renderWithQueryClient(
+      <PostsScreen />
+    );
+
+    await waitForElementToBeRemoved(() =>
+      getByTestId("loading-activity-indicator")
+    ); //<== valida que o component de carregamento é mostrado enquanto carrega e então removido
+
+    await findByText(POST_1.title); //<== valida que o conteudo do post foi mostrado
+
+    await findByText(POST_2.title);
+
+    fireEvent.press(getByTestId(`post-${POST_1.id}`)); //<== simula um evento 'onPress' no componente PostCell
+
+    expect(router.navigate).toHaveBeenCalledWith(`/posts/${POST_1.id}`); //<== valida que após clicar no botão foi redirecionado para a tela correta
+  });
+```
 
 ## Limitações
 
