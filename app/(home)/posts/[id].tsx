@@ -8,7 +8,7 @@ import { ActivityIndicator, Text, View, FlatList } from "react-native";
 //ref https://docs.expo.dev/develop/dynamic-routes/
 //ref https://tanstack.com/query/latest/docs/framework/react/guides/initial-query-data
 
-export default function PostScreen() {
+export default function PostDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const queryClient = useQueryClient();
   const {

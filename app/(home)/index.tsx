@@ -13,7 +13,7 @@ import {
 
 //ref https://tanstack.com/query/latest/docs/framework/react/guides/infinite-queries
 
-export default function HomeScreen() {
+export default function PostsScreen() {
   const [searchingText, setSearchingText] = useState("");
   const { data, error, fetchNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
@@ -44,6 +44,7 @@ export default function HomeScreen() {
     <View style={{ flex: 1, backgroundColor: "#FFF" }}>
       <View style={{ padding: 16, borderBottomWidth: 1, borderColor: "#DDD" }}>
         <TextInput
+          testID="search-text-input"
           placeholder="Buscar por título ou conteúdo"
           placeholderTextColor={"#999"}
           value={searchingText}
@@ -51,10 +52,12 @@ export default function HomeScreen() {
         />
       </View>
       <FlatList
+        testID="posts-flat-list"
         data={filteredPosts}
         keyExtractor={(item) => `${item.id}`}
         renderItem={({ item }) => (
           <PostCell
+            testID={`post-${item.id}`}
             post={item}
             preview
             onPress={() => router.navigate(`/posts/${item.id}`)}
@@ -63,9 +66,9 @@ export default function HomeScreen() {
         ListEmptyComponent={() => (
           <View style={{ padding: 16 }}>
             {status === "pending" ? (
-              <ActivityIndicator />
+              <ActivityIndicator testID="loading-activity-indicator" />
             ) : status === "error" ? (
-              <Text>Error: {error.message}</Text>
+              <Text>{error.message}</Text>
             ) : null}
           </View>
         )}

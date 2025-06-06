@@ -2,16 +2,19 @@ import { Post } from "@/data";
 import { Text, TouchableOpacity } from "react-native";
 
 export default function PostCell({
+  testID,
   post,
   preview,
   onPress,
 }: {
+  testID?: string;
   post: Post;
   preview?: boolean;
   onPress?: () => void;
 }) {
   return (
     <TouchableOpacity
+      testID={testID}
       style={{
         padding: 16,
         borderBottomColor: "#DDD",
